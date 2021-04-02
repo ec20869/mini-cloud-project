@@ -1,10 +1,13 @@
+# Import the necessary libraries
 from flask import Flask, jsonify, json, request
 import mysql.connector
 import requests
 import json
 import collections
-with open('records.json') as f:
-    all_records = json.load(f)
+
+# Libraries that are no longer needed
+#import jwt
+#import pandas as pd
 
 app = Flask(__name__)
 
