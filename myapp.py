@@ -1,13 +1,30 @@
 from flask import Flask, jsonify, json, request
-
+import mysql.connector
+import requests
+import json
+import collections
 with open('records.json') as f:
     all_records = json.load(f)
 
 app = Flask(__name__)
 
+# This allows for testing when the database is turned off
+try:
+    # Define the connection parameters for the SQL database
+    mydb = mysql.connector.connect(
+    host="rds-mysql-musicapp.cthtio1llmic.us-east-1.rds.amazonaws.com",
+    user="admin",
+    password="music123",
+    database="music"
+    )
+except:
+    x=1
+
+
 @app.route('/records', methods=['GET'])
 def get_all_records():
 	return jsonify(all_records)
+
 
 @app.route('/records/<bandname>', methods=['GET','DELETE'])
 def get_albums_by_band(bandname):
