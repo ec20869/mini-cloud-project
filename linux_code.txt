@@ -28,7 +28,7 @@ git init
 git clone https://github.com/ec20869/mini-cloud-project
 
 # Create a new working directory
-cd cloud_computing
+cd mini-cloud-project
 
 # Build the docker image
 sudo docker build -t christadobson/music-cloud-project
