@@ -40,7 +40,7 @@ sudo docker run -p 80:80 christadobson/music-cloud-project
 sudo docker images
 
 # Tag docker image correctly
-sudo docker tag ac9895a6e7a4 christadobson/music-cloud-project
+sudo docker tag 47756eed25f7 christadobson/music-cloud-project
 
 # Docker Login
 sudo docker login
@@ -49,7 +49,7 @@ sudo docker login
 sudo docker push christadobson/music-cloud-project
 
 # Start the container from image
-sudo docker container run -d -it --name investment christadobson/music-cloud-project
+sudo docker container run -d -it --name music christadobson/music-cloud-project
 
 # Install Kubernetes
 sudo apt update -y
@@ -58,7 +58,7 @@ sudo snap install microk8s --classic
 sudo apt-get update
 
 # Build POD from Manifest file
-sudo nano create-investmentpod.yml
+sudo nano create-musicpod.yml
 
 # Add content to yaml file
 apiVersion: v1
@@ -79,21 +79,21 @@ spec:
 sudo microk8s kubectl get all
 
 # Create a deployment
-sudo microk8s kubectl create deployment investment --image=christadobson/music-cloud-project --port=80
+sudo microk8s kubectl create deployment music --image=christadobson/music-cloud-project --port=80
 
 # Create a load balancer
-sudo microk8s kubectl expose deployment investment --type=LoadBalancer --port 80 --target-port 80
+sudo microk8s kubectl expose deployment music --type=LoadBalancer --port 80 --target-port 80
 
 # Scale the deployment
-sudo microk8s kubectl scale deployment investment --replicas=2
+sudo microk8s kubectl scale deployment music --replicas=2
 
 # Delete statments if needed
-sudo microk8s kubectl delete deployment investment
-sudo microk8s kubectl delete service investment
+sudo microk8s kubectl delete deployment music
+sudo microk8s kubectl delete service music
 rm -r cloud_computing
 
 
-sudo microk8s kubectl get pods -l app=investment
+sudo microk8s kubectl get pods -l app=music
 sudo microk8s kubectl get pods -l app=hostnames \
     -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
 	
