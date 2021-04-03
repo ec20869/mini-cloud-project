@@ -24,6 +24,44 @@ except:
     x=1
 
 
+
+@app.route('/')
+def api_information():
+    # This function returns a HTML page with information on all the other APIs
+    return """<html>
+<body>
+<h1>Music API Service</h1>
+<h3>Designed, developed and implemented by Freddie Sauvundra, Tom Doyle and Christa Dobson</h3>
+<br></br>
+<br></br>
+<b>Get all the records</b>
+<p>Request type: GET</p>
+<p>Path: /records/</p>
+<br></br>
+<b>Get albums by bandname</b>
+<p>Request type: GET</p>
+<p>Path: /records/<bandname></p>
+<p>Example Path: /records/Radiohead</p>
+<br></br>
+<b>Get songs by band and album</b>
+<p>Request type: GET</p>
+<p>Path: /records/<bandname>/<albumtitle></p>
+<p>Example Path: /records/Radiohead/TheKingofLimbs</p>
+<br></br>
+<b>Create a record</b>
+<p>Request type: POST</p>
+<p>Path: /records/<bandname></p>
+<p>Example Path: /records/ColdPlay</p>
+<br></br>
+<b>Delete a band</b>
+<p>Request type: DELETE</p>
+<p>Path: /records/delete/<bandname></p>
+<p>Example Path: /records/delete/Portishead
+<br></br>
+</body>
+</html>"""
+
+
 @app.route('/records', methods=['GET'])
 def get_all_records():
 	return jsonify(all_records)
