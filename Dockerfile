@@ -1,19 +1,6 @@
-FROM python:3
-WORKDIR /app
-ADD requirements.txt .
-ADD myapp.py .
-# install FreeTDS and dependenciesRUN apt-get update \
- && apt-get install unixodbc -y \
- && apt-get install unixodbc-dev -y \
- && apt-get install freetds-dev -y \
- && apt-get install freetds-bin -y \
- && apt-get install tdsodbc -y \
- && apt-get install --reinstall build-essential -y
-# populate "ocbcinst.ini" as this is where ODBC driver config sits
-RUN echo "[FreeTDS]\n\
-Description = FreeTDS Driver\n\
-Driver = /usr/lib/x86_64-linux-gnu/odbc/libtdsodbc.so\n\
-Setup = /usr/lib/x86_64-linux-gnu/odbc/libtdsS.so" >> /etc/odbcinst.ini
-#Pip command without proxy setting
+FROM python:3.7-alpine
+WORKDIR /myapp
+COPY . /myapp
 RUN pip install -r requirements.txt
-CMD ["python","-i","myapp.py"]
+EXPOSE 80
+CMD ["python" , "myapp.py"]
