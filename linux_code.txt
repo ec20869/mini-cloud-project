@@ -21,6 +21,7 @@ pip3 install mysql-connector-python
 # Install docker, nginx and gcc
 sudo apt update
 sudo apt install docker.io
+sudo apt-get update
 sudo docker run -d -p 80:80 nginx
 sudo docker pull nginx
 sudo apt-get install gcc
@@ -33,25 +34,25 @@ git clone https://github.com/ec20869/mini-cloud-project
 cd mini-cloud-project
 
 # Build the docker image
-sudo docker build -t christadobson/music-cloud-project .
+sudo docker build -t christadobson/music-cloud-project:v1 .
 	
 # Run the docker image
-sudo docker run -p 80:80 christadobson/music-cloud-project
+sudo docker run -p 80:80 christadobson/music-cloud-project:v1
 
 # Find docker image id
 sudo docker images
 
 # Tag docker image correctly
-sudo docker tag 47756eed25f7 christadobson/music-cloud-project
+sudo docker tag 47756eed25f7 christadobson/music-cloud-project:v1
 
 # Docker Login
 sudo docker login
 
 # Push image to registery
-sudo docker push christadobson/music-cloud-project
+sudo docker push christadobson/music-cloud-project:v1
 
 # Start the container from image
-sudo docker container run -d -it --name music christadobson/music-cloud-project
+sudo docker container run -d -it --name music christadobson/music-cloud-project:v1
 
 # Install Kubernetes
 sudo apt update -y
@@ -70,7 +71,7 @@ metadata:
 spec:
    containers:
    - name: music-container01
-     image: christadobson/music-cloud-project
+     image: christadobson/music-cloud-project:v1
      ports:
      - containerPort: 6379
 
@@ -81,13 +82,13 @@ spec:
 sudo microk8s kubectl get all
 
 # Create a deployment
-sudo microk8s kubectl create deployment music --image=christadobson/music-cloud-project --port=80
+sudo microk8s kubectl create deployment music --image=christadobson/music-cloud-project:v1 --port=80
 
 # Create a load balancer
 sudo microk8s kubectl expose deployment music --type=LoadBalancer --port 80 --target-port 80
 
 # Scale the deployment
-sudo microk8s kubectl scale deployment music --replicas=2
+sudo microk8s kubectl scale deployment music --replicas=3
 
 # Delete statments if needed
 sudo microk8s kubectl delete deployment music
