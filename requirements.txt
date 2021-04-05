@@ -4,4 +4,4 @@ requests_cache
 pyodbc
 mysql-connector-python
 pip
-jasonify
+
