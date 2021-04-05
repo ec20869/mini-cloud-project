@@ -19,7 +19,9 @@ pip3 install pyodbc
 pip3 install mysql-connector-python
 
 # Install docker, nginx and gcc
+sudo apt update
 sudo apt install docker.io
+sudo docker run -d -p 80:80 nginx
 sudo docker pull nginx
 sudo apt-get install gcc
 
@@ -31,7 +33,7 @@ git clone https://github.com/ec20869/mini-cloud-project
 cd mini-cloud-project
 
 # Build the docker image
-sudo docker build -t christadobson/music-cloud-project
+sudo docker build -t christadobson/music-cloud-project .
 	
 # Run the docker image
 sudo docker run -p 80:80 christadobson/music-cloud-project
